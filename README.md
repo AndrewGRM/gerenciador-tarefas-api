@@ -145,9 +145,10 @@ A API implementa um tratamento de exceções global para fornecer respostas de e
   - `403 Forbidden:` Requisição com autenticação, mas sem a role necessária.
 
 ---
-# 🙏 Agradecimentos / Suporte
+# 🙏 Suporte
 Este projeto foi desenvolvido com o auxílio fundamental do Gemini, uma ferramenta de inteligência artificial. O Gemini forneceu suporte valioso ao:
 
   - Esclarecer dúvidas técnicas sobre o Spring Boot, Spring Security e outros conceitos.
   - Explicar detalhes de classes, métodos e anotações do framework.
   - Guiar o desenvolvimento em um passo a passo detalhado, permitindo que eu construísse o código de forma autônoma e compreendesse cada etapa, sem a necessidade de ver o código pronto antecipadamente.
+
