@@ -3,7 +3,6 @@ package com.andrew.todolist_api.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -12,7 +11,6 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.security.config.Customizer.withDefaults;
-import static org.springframework.web.servlet.function.RequestPredicates.headers;
 
 @Configuration
 @EnableWebSecurity
@@ -23,6 +21,10 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
+                        // permite o acesso ao console do H2 sem autentificação
+                        .requestMatchers("/h2-console/**").permitAll()
+                        // Permite acesso à documentação do Springdoc OpenAPI (Swagger UI e definição da API)
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**" ).permitAll()
                         // Regras de ADMIN (as mais específicas primeiro)
                         .requestMatchers(HttpMethod.POST, "/tasks").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/tasks/{id}").hasRole("ADMIN")
@@ -30,9 +32,10 @@ public class SecurityConfig {
                         // Regras de USER (e ADMIN)
                         .requestMatchers(HttpMethod.GET, "/tasks").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/tasks/{id}").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/h2-console/**").permitAll()
-                        // Regra para o resto
+                        .requestMatchers("/v3/api-docs/**").permitAll()
+                        // Qualquer outra requisição deve ser autenticada
                         .anyRequest().authenticated())
+
                 .httpBasic(withDefaults())
                 .headers(headers -> headers
                 .frameOptions(frameOptions -> frameOptions
