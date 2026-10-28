@@ -38,11 +38,11 @@ O projeto utiliza as seguintes tecnologias e frameworks:
 ### Passos para execução
 
 **Passos**
-1. Clone o repositório (se estiver em um sistema de controle de versão):
+1. Clone o repositório:
 
 ```bash
-git clone <URL_DO_SEU_REPOSITORIO>
-cd todolist-api
+git clone https://github.com/AndrewGRM/gerenciador-tarefas-api.git
+cd gerenciador-tarefas-api
 ```
 
 2. Importe o projeto na sua IDE:
